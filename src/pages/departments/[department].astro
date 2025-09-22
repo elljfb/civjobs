@@ -28,9 +28,9 @@ console.log(`Jobs for ${decodedDepartment}:`, jobs);
   description={`Browse civil service jobs in the ${decodedDepartment} department. Find opportunities by location, salary, and more.`}
 >
   <div class="container">
-    <h1 class="text-4xl font-bold text-brand-primary mb-4">Careers in {decodedDepartment}</h1>
+    <h1 class="text-4xl font-bold text-brand-primary mb-4">Jobs in {decodedDepartment}</h1>
     <p class="text-lg text-text-secondary mb-8">
-      Explore the latest job openings at the {decodedDepartment}. This department plays a crucial role in [insert brief, generic description of what a department does, e.g., 'shaping national policy and delivering public services']. Find your next career opportunity and contribute to meaningful work by browsing the available roles below.
+      Explore the latest job openings at the {decodedDepartment}. This department is integral to the UK government, responsible for implementing policy and delivering vital public services. Find your next career opportunity and contribute to meaningful work by browsing the available roles below.
     </p>
     {jobs.length === 0 ? (
       <p class="text-lg text-gray-600">No jobs found in {decodedDepartment}.</p>
