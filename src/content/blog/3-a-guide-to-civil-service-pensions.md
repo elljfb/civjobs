@@ -2,7 +2,7 @@
 title: 'A Guide to the Civil Service Pension Scheme'
 description: 'An overview of the Civil Service pension, one of the most valuable benefits of a career in UK government. Learn about the Alpha scheme, contributions, and retirement.'
 pubDate: '2025-09-20'
-heroImage: '../../assets/blog-placeholder-3.jpg'
+heroImage: '../../assets/pension.jpg'
 ---
 
 When considering a career in the Civil Service, the salary is only part of the picture. One of the most significant and valuable benefits is the Civil Service pension. It's a key part of the total rewards package and is often cited as a major reason for joining the public sector.

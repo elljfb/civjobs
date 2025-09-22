@@ -2,7 +2,7 @@
 title: 'Mastering the Civil Service Application: The STAR Method'
 description: 'A practical guide to writing high-scoring behaviours for your UK Civil Service job application using the STAR method (Situation, Task, Action, Result).'
 pubDate: '2025-09-21'
-heroImage: '../../assets/blog-placeholder-2.jpg'
+heroImage: '../../assets/london.jpg'
 ---
 
 One of the biggest hurdles in applying for a Civil Service job is the application itself. Instead of a traditional CV and cover letter, you're often asked to provide evidence of specific "behaviours" or "success profiles." The key to scoring well is using the **STAR method**.

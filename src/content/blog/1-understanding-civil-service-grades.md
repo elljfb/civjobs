@@ -2,7 +2,7 @@
 title: 'Understanding Civil Service Grades: From AO to SEO'
 description: 'A clear guide to the UK Civil Service grading structure. Learn the differences between Administrative Officer, Executive Officer, and Senior Executive Officer roles.'
 pubDate: '2025-09-22'
-heroImage: '../../assets/blog-placeholder-1.jpg'
+heroImage: '../../assets/grades.png'
 ---
 
 Navigating the world of Civil Service jobs can feel like learning a new language, especially when it comes to the grading system. Understanding the various grades is the first step to finding the right role for your skills and experience. This guide will demystify the main grades you'll encounter.
