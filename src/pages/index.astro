@@ -1,0 +1,170 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
+import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import FormattedDate from '../components/FormattedDate.astro';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+).slice(0, 3);
+---
+<Layout title={`${SITE_TITLE} | ${SITE_DESCRIPTION}`} description={SITE_DESCRIPTION}>
+  
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">Find Your Career in the UK Civil Service</h1>
+      <p class="hero-subtitle">
+        Your central resource for discovering and applying to jobs across the UK public sector.
+      </p>
+    </div>
+  </section>
+
+  <!-- Key Pages Section -->
+  <section class="key-pages-section">
+    <div class="container">
+      <div class="grid gap-6 md:grid-cols-3">
+        <a href="/departments" class="key-page-card">
+          <h2 class="card-title">Browse by Department</h2>
+          <p>Explore opportunities in specific government departments.</p>
+        </a>
+        <a href="/locations" class="key-page-card">
+          <h2 class="card-title">Search by Location</h2>
+          <p>Find jobs in your city or region across the UK.</p>
+        </a>
+        <a href="/salaries" class="key-page-card">
+          <h2 class="card-title">Filter by Salary</h2>
+          <p>Discover roles that match your salary expectations.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Blog Posts Section -->
+  <section class="blog-section">
+    <div class="container">
+      <h2 class="section-title">Latest from the Blog</h2>
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {posts.map((post) => (
+          <a href={`/blog/${post.id}/`} class="blog-card">
+            {post.data.heroImage && (
+              <Image 
+                src={post.data.heroImage} 
+                alt="" 
+                width={720} 
+                height={360} 
+                class="card-image"
+              />
+            )}
+            <div class="card-content">
+              <h3 class="card-title-blog">{post.data.title}</h3>
+              <p class="card-date">
+                <FormattedDate date={post.data.pubDate} />
+              </p>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    background-color: var(--brand-primary);
+    color: var(--text-on-dark);
+    padding: 4rem 0;
+    text-align: center;
+  }
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-on-dark);
+  }
+  .hero-subtitle {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+  }
+
+  /* Key Pages Section */
+  .key-pages-section {
+    padding: 3rem 0;
+  }
+  .key-page-card {
+    display: block;
+    background-color: var(--bg-primary);
+    padding: 2rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-align: center;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+  }
+  .key-page-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-md);
+  }
+  .key-page-card .card-title {
+    font-size: 1.5rem;
+    color: var(--brand-primary);
+    margin-bottom: 0.5rem;
+  }
+  .key-page-card p {
+    color: var(--text-secondary);
+  }
+
+  /* Recent Blog Posts Section */
+  .blog-section {
+    padding: 3rem 0;
+    background-color: var(--bg-secondary);
+  }
+  .section-title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: var(--brand-primary);
+  }
+  .blog-card {
+    display: block;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  .blog-card:hover {
+    box-shadow: var(--box-shadow-md);
+  }
+  .card-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .card-content {
+    padding: 1.5rem;
+  }
+  .card-title-blog {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brand-primary);
+    margin: 0 0 0.5rem 0;
+  }
+  .card-date {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+  }
+</style>

@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE_TITLE } from '../consts';
+---
+<Layout 
+  title={`About Us | ${SITE_TITLE}`}
+  description="Learn about Civil Service Jobs, a resource founded by former civil servants to help you start your career in the UK public sector."
+>
+  <main class="about-page">
+    <div class="container prose">
+      <h1>About Civil Service Jobs</h1>
+      <p>
+        Welcome to Civil Service Jobs, your independent guide to a rewarding career in the UK public sector. Our mission is to demystify the Civil Service application process and provide you with the resources you need to succeed.
+      </p>
+      
+      <h2>Our Story</h2>
+      <p>
+        This website was founded by a team of former civil servants who have firsthand experience with the challenges and rewards of working in government. We understand that navigating the complex world of public sector recruitment can be daunting. That's why we created this platform—to share our knowledge and help aspiring individuals like you find and secure a fulfilling role in the Civil Service.
+      </p>
+      
+      <h2>Our Commitment to Transparency</h2>
+      <p>
+        It is important for us to be clear about who we are and what we do. <strong>We have no official affiliation with the UK government or the Civil Service.</strong>
+      </p>
+      <p>
+        All job listings and information presented on this site are sourced from publicly available websites and data sources. We aggregate this information to make it more accessible, but we do not represent any official government body.
+      </p>
+
+      <h2>What We Offer</h2>
+      <p>
+        Alongside our comprehensive job board, our blog provides valuable insights and practical advice on a range of topics, including:
+      </p>
+      <ul>
+        <li>Writing effective applications and personal statements</li>
+        <li>Preparing for interviews and assessment centres</li>
+        <li>Understanding Civil Service pensions and benefits</li>
+        <li>Tips for career progression and development</li>
+      </ul>
+      <p>
+        We hope you find this resource helpful in your journey to a rewarding career in public service.
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .about-page {
+    padding: 2rem 0;
+  }
+  .prose {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  .prose :global(h1),
+  .prose :global(h2) {
+    color: var(--brand-primary);
+    margin-bottom: 1em;
+  }
+  .prose :global(h1) {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .prose :global(p),
+  .prose :global(ul) {
+    margin-bottom: 1.25em;
+    line-height: 1.7;
+    color: var(--text-primary);
+  }
+  .prose :global(ul) {
+    list-style-position: inside;
+  }
+  .prose :global(strong) {
+    color: var(--brand-primary);
+  }
+</style>

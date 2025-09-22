@@ -1,0 +1,77 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import { Image } from 'astro:assets';
+import { SITE_TITLE } from '../../consts';
+
+const posts = (await getCollection('blog')).sort(
+	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+<Layout 
+  title={`Blog | ${SITE_TITLE}`} 
+  description="Articles and guides about working in the UK Civil Service. Get tips on applications, interviews, pensions, and career progression."
+>
+  <div class="container">
+    <h1 class="text-4xl font-bold text-brand-primary mb-4">Civil Service Careers Blog</h1>
+    <p class="text-lg text-text-secondary mb-8">
+      Your guide to a successful career in the UK Civil Service. Here you'll find articles and advice on everything from navigating the application process to understanding your pension and excelling in your role.
+    </p>
+    <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      {posts.map((post) => (
+        <a href={`/blog/${post.id}/`} class="blog-card">
+          {post.data.heroImage && (
+            <Image 
+              src={post.data.heroImage} 
+              alt="" 
+              width={720} 
+              height={360} 
+              class="card-image"
+            />
+          )}
+          <div class="card-content">
+            <h2 class="card-title">{post.data.title}</h2>
+            <p class="card-date">
+              <FormattedDate date={post.data.pubDate} />
+            </p>
+          </div>
+        </a>
+      ))}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .blog-card {
+    display: block;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  .blog-card:hover {
+    box-shadow: var(--box-shadow-md);
+  }
+  .card-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .card-content {
+    padding: 1.5rem;
+  }
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--brand-primary);
+    margin: 0 0 0.5rem 0;
+  }
+  .card-date {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+</style>

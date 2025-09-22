@@ -1,0 +1,55 @@
+---
+import { getAllJobs, getUniqueValues } from '../../lib/supabase';
+import Layout from '../../layouts/Layout.astro';
+import { SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths() {
+  const uniqueDepartments = await getUniqueValues('job_listings', 'department');
+  console.log('Generated departments:', uniqueDepartments);
+  return uniqueDepartments.map((dep: string) => ({
+    params: { department: dep.toLowerCase().replace(/\s+/g, '-') },
+  }));
+}
+
+const { department } = Astro.params;
+const departmentParam = typeof department === 'string' ? department : '';
+const decodedDepartment = departmentParam
+  .split('-')
+  .map(w => w.charAt(0).toUpperCase() + w.slice(1))
+  .join(' ');
+const jobs = (await getAllJobs()).filter(job =>
+  job.department &&
+  job.department.toLowerCase().replace(/\s+/g, '-') === departmentParam.toLowerCase()
+);
+console.log(`Jobs for ${decodedDepartment}:`, jobs);
+---
+<Layout
+  title={`Jobs in ${decodedDepartment} | ${SITE_TITLE}`}
+  description={`Browse civil service jobs in the ${decodedDepartment} department. Find opportunities by location, salary, and more.`}
+>
+  <div class="container">
+    <h1 class="text-4xl font-bold text-brand-primary mb-4">Careers in {decodedDepartment}</h1>
+    <p class="text-lg text-text-secondary mb-8">
+      Explore the latest job openings at the {decodedDepartment}. This department plays a crucial role in [insert brief, generic description of what a department does, e.g., 'shaping national policy and delivering public services']. Find your next career opportunity and contribute to meaningful work by browsing the available roles below.
+    </p>
+    {jobs.length === 0 ? (
+      <p class="text-lg text-gray-600">No jobs found in {decodedDepartment}.</p>
+    ) : (
+      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+        {jobs.map(job => (
+          <div class="bg-white p-6 rounded-lg border border-border-color shadow-sm hover:shadow-md transition-shadow">
+            <h2 class="text-xl font-bold text-brand-primary">
+              <a href={job.url} class="hover:underline" target="_blank" rel="noopener noreferrer">
+                {job.title}
+              </a>
+            </h2>
+            <p class="text-text-secondary mt-2">Department: {job.department}</p>
+            <p class="text-text-secondary">Salary: {job.salary}</p>
+            <p class="text-text-secondary">Locations: {job.job_locations.map(l => l.location).join(', ')}</p>
+            <p class="text-text-secondary">Closes: {job.closing_date ? new Date(job.closing_date).toLocaleDateString() : 'N/A'}</p>
+          </div>
+        ))}
+      </div>
+    )}
+  </div>
+</Layout>

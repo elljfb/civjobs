@@ -1,0 +1,82 @@
+---
+const today = new Date();
+---
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h3 class="footer-heading">Site Map</h3>
+        <ul class="footer-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/departments">Departments</a></li>
+          <li><a href="/locations">Locations</a></li>
+          <li><a href="/salaries">Salaries</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">About</h3>
+        <ul class="footer-links">
+          <li><a href="/blog">Blog</a></li>
+          <li><a href="/about">About Us</a></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="footer-heading">Legal</h3>
+        <ul class="footer-links">
+          <li><a href="/privacy">Privacy Policy</a></li>
+          <li><a href="/terms">Terms of Service</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-copyright">
+      &copy; {today.getFullYear()} CivilServiceJobs.co. All rights reserved.
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background-color: var(--brand-primary);
+    color: var(--text-on-dark);
+    margin-top: auto;
+    padding: 2rem 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .footer-heading {
+    font-size: 1.125rem; /* 18px */
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+  .footer-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .footer-links a {
+    color: var(--text-on-dark);
+    text-decoration: none;
+  }
+  .footer-links a:hover {
+    text-decoration: underline;
+  }
+  .footer-copyright {
+    margin-top: 2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    padding-top: 1rem;
+    text-align: center;
+    font-size: 0.875rem; /* 14px */
+  }
+
+  @media (min-width: 768px) {
+    .footer-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

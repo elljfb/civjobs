@@ -1,0 +1,47 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE_TITLE } from '../consts';
+---
+<Layout 
+  title={`Privacy Policy | ${SITE_TITLE}`}
+  description="Read the Privacy Policy for the Civil Service Jobs website, including information on our use of Google Analytics."
+>
+  <main class="legal-page">
+    <div class="container prose">
+      <h1>Privacy Policy</h1>
+      <p>Last Updated: {new Date().toLocaleDateString()}</p>
+
+      <p>
+        Your privacy is important to us. This Privacy Policy explains how we collect, use, and share information when you use the Civil Service Jobs website (the "Service").
+      </p>
+      
+      <h2>1. Information We Collect</h2>
+      <p>
+        We do not collect any personally identifiable information (PII) such as your name, email address, or phone number directly. Our Service is designed to be used without requiring you to create an account or submit personal data.
+      </p>
+      
+      <h2>2. Analytics Data</h2>
+      <p>
+        To improve our website and provide a better experience for our users, we use Google Analytics to collect anonymous data about user interactions. This helps us understand how visitors use our site, what content is popular, and how we can improve performance.
+      </p>
+      <p>
+        The data collected by Google Analytics may include your IP address, browser type, operating system, pages visited, and the duration of your visit. This information is aggregated and anonymized, and cannot be used to identify you personally. For more information on how Google handles this data, you can review <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer">Google's Privacy Policy</a>.
+      </p>
+
+      <h2>3. Cookies</h2>
+      <p>
+        Like many websites, we use "cookies." Cookies are small data files stored on your browser by a website. We use cookies in connection with Google Analytics to help analyze how users interact with the site. You can instruct your browser to refuse all cookies or to indicate when a cookie is being sent.
+      </p>
+
+      <h2>4. Data Sourcing and Affiliation</h2>
+      <p>
+        As stated in our Terms of Service, this website is not affiliated with the UK Government. All job data is sourced from publicly available websites. We do not collect or store any information from your applications to any job listings.
+      </p>
+
+      <h2>5. Changes to This Policy</h2>
+      <p>
+        We may update our Privacy Policy from time to time. We will notify you of any changes by posting the new Privacy Policy on this page.
+      </p>
+    </div>
+  </main>
+</Layout>

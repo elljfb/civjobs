@@ -1,0 +1,46 @@
+---
+import { getAllJobs } from '../../lib/supabase';
+import Layout from '../../layouts/Layout.astro';
+import { SITE_TITLE } from '../../consts';
+import { isValidLocation } from '../../lib/utils';
+
+const allJobs = await getAllJobs();
+const locationsWithJobs = new Set<string>();
+
+allJobs.forEach(job => {
+  job.job_locations.forEach(loc => {
+    if (isValidLocation(loc.location)) {
+      locationsWithJobs.add(loc.location);
+    }
+  });
+});
+
+const locations = Array.from(locationsWithJobs).sort();
+---
+<Layout 
+  title={`All Job Locations | ${SITE_TITLE}`} 
+  description="Explore civil service jobs across all UK locations. Find opportunities by city, department, salary, and more."
+>
+  <div class="container">
+    <h1 class="text-4xl font-bold text-brand-primary mb-4">Find Civil Service Jobs by Location</h1>
+    <p class="text-lg text-text-secondary mb-8">
+      Civil Service roles are available in towns and cities across the United Kingdom, offering opportunities wherever you are based. Whether you're looking for a job in a major city like London, Manchester, or Glasgow, or prefer a role in a regional office, you can find a position that suits your location. Browse the list below to see all available job locations.
+    </p>
+    {locations.length === 0 ? (
+      <p class="text-lg text-gray-600">No locations found.</p>
+    ) : (
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {locations.map((location: string) => (
+          <a 
+            href={`/locations/${location.toLowerCase().replace(/\s+/g, '-')}`} 
+            class="bg-white p-4 rounded-lg border border-border-color shadow-sm hover:shadow-md transition-shadow block"
+          >
+            <h2 class="text-xl font-semibold text-brand-primary group-hover:underline">
+              {location}
+            </h2>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</Layout>

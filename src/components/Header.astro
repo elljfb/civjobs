@@ -1,0 +1,112 @@
+---
+import { SITE_TITLE } from '../consts';
+import HeaderLink from './HeaderLink.astro';
+---
+<header class="site-header">
+  <div class="container">
+    <nav class="main-nav">
+      <a href="/" class="logo">
+        {SITE_TITLE}
+      </a>
+      <div class="desktop-nav">
+        <HeaderLink href="/">Home</HeaderLink>
+        <HeaderLink href="/departments">Departments</HeaderLink>
+        <HeaderLink href="/locations">Locations</HeaderLink>
+        <HeaderLink href="/salaries">Salaries</HeaderLink>
+        <HeaderLink href="/blog">Blog</HeaderLink>
+      </div>
+      <button id="menu-btn" class="mobile-nav-toggle">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+        </svg>
+      </button>
+    </nav>
+  </div>
+  <div id="mobile-menu" class="mobile-menu">
+    <a href="/">Home</a>
+    <a href="/departments">Departments</a>
+    <a href="/locations">Locations</a>
+    <a href="/salaries">Salaries</a>
+    <a href="/blog">Blog</a>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    background-color: var(--bg-primary);
+    box-shadow: var(--box-shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+  .main-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 5rem; /* 80px */
+  }
+  .logo {
+    font-size: 1.5rem; /* 24px */
+    font-weight: 700;
+    color: var(--brand-primary);
+    text-decoration: none;
+  }
+  .logo:hover {
+    color: var(--brand-secondary);
+  }
+  .desktop-nav {
+    display: none;
+  }
+  .desktop-nav > :global(a) {
+    margin-left: 2rem;
+  }
+  .mobile-nav-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: var(--brand-primary);
+    cursor: pointer;
+  }
+  
+  .mobile-menu {
+    display: none;
+    background-color: var(--bg-primary);
+    padding: 0.5rem 0;
+  }
+  .mobile-menu a {
+    display: block;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    color: var(--text-primary);
+    text-decoration: none;
+  }
+  .mobile-menu a:hover {
+    background-color: var(--bg-secondary);
+  }
+
+  /* Show mobile menu when it has the .is-open class */
+  .mobile-menu.is-open {
+    display: block;
+  }
+
+  @media (min-width: 768px) {
+    .desktop-nav {
+      display: flex;
+      align-items: center;
+    }
+    .mobile-nav-toggle {
+      display: none;
+    }
+  }
+</style>
+
+<script>
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('is-open');
+    });
+  }
+</script>

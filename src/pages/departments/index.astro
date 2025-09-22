@@ -1,0 +1,35 @@
+---
+import { getUniqueValues } from '../../lib/supabase';
+import Layout from '../../layouts/Layout.astro';
+import { SITE_TITLE } from '../../consts';
+
+const departments = await getUniqueValues('job_listings', 'department');
+console.log('Departments index:', departments);
+---
+<Layout 
+  title={`All Job Departments | ${SITE_TITLE}`} 
+  description="Explore civil service jobs across all departments. Find opportunities by role, location, salary, and more."
+>
+  <div class="container">
+    <h1 class="text-4xl font-bold text-brand-primary mb-4">Browse Civil Service Jobs by Department</h1>
+    <p class="text-lg text-text-secondary mb-8">
+      The UK Civil Service is made up of a wide array of departments, each with a unique focus and mission. From the Ministry of Defence to the Department for Education, you can find fulfilling careers across the public sector. Explore the list below to find a department that matches your skills and interests, and discover the latest job opportunities available.
+    </p>
+    {departments.length === 0 ? (
+      <p class="text-lg text-gray-600">No departments found.</p>
+    ) : (
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {departments.map((department: string) => (
+          <a 
+            href={`/departments/${department.toLowerCase().replace(/\s+/g, '-')}`} 
+            class="bg-white p-4 rounded-lg border border-border-color shadow-sm hover:shadow-md transition-shadow block"
+          >
+            <h2 class="text-xl font-semibold text-brand-primary group-hover:underline">
+              {department}
+            </h2>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</Layout>

@@ -1,0 +1,36 @@
+---
+import { getUniqueSalaryBuckets } from '../../lib/supabase';
+import Layout from '../../layouts/Layout.astro';
+import { createSalarySlug } from '../../lib/utils';
+import { SITE_TITLE } from '../../consts';
+
+const salaries = await getUniqueSalaryBuckets();
+console.log('Salaries index:', salaries);
+---
+<Layout 
+  title={`Jobs by Salary Range | ${SITE_TITLE}`} 
+  description="Explore civil service jobs by salary range. Find opportunities that match your salary expectations."
+>
+  <div class="container">
+    <h1 class="text-4xl font-bold text-brand-primary mb-4">Explore Civil Service Jobs by Salary</h1>
+    <p class="text-lg text-text-secondary mb-8">
+      The Civil Service offers a wide range of salaries, with competitive pay scales that vary by grade, department, and location. Whether you are an apprentice starting your career or an experienced professional, you can find a role that meets your salary expectations. Use the salary bands below to explore job openings that align with your financial goals.
+    </p>
+    {salaries.length === 0 ? (
+      <p class="text-lg text-gray-600">No salary ranges found.</p>
+    ) : (
+      <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        {salaries.map((salary: string) => (
+          <a 
+            href={`/salaries/${createSalarySlug(salary)}`} 
+            class="bg-white p-4 rounded-lg border border-border-color shadow-sm hover:shadow-md transition-shadow block"
+          >
+            <h2 class="text-xl font-semibold text-brand-primary group-hover:underline">
+              {salary}
+            </h2>
+          </a>
+        ))}
+      </div>
+    )}
+  </div>
+</Layout>

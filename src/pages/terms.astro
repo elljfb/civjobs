@@ -1,0 +1,76 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE_TITLE } from '../consts';
+---
+<Layout 
+  title={`Terms of Service | ${SITE_TITLE}`}
+  description="Read the Terms of Service for using the Civil Service Jobs website."
+>
+  <main class="legal-page">
+    <div class="container prose">
+      <h1>Terms of Service</h1>
+      <p>Last Updated: {new Date().toLocaleDateString()}</p>
+
+      <p>
+        Please read these Terms of Service ("Terms") carefully before using the Civil Service Jobs website (the "Service"), operated by us. Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users, and others who access or use the Service.
+      </p>
+      
+      <h2>1. Description of Service</h2>
+      <p>
+        Civil Service Jobs is an independent platform created to aggregate and display job listings from the UK Civil Service. Our goal is to make these opportunities more accessible to the public.
+      </p>
+      
+      <h2>2. Data and Affiliation</h2>
+      <p>
+        <strong>Disclaimer:</strong> This website is not affiliated with, endorsed by, or in any way officially connected with the UK Government or the Civil Service. All job listings and related information are sourced from publicly available data provided on official government websites. While we strive to ensure the accuracy and timeliness of the information presented, we cannot guarantee it. Users should always verify job details on the official hiring website.
+      </p>
+
+      <h2>3. Use of the Service</h2>
+      <p>
+        You agree to use the Service for lawful purposes only and in a way that does not infringe the rights of, restrict, or inhibit anyone else's use and enjoyment of the Service.
+      </p>
+
+      <h2>4. Limitation of Liability</h2>
+      <p>
+        The information on this website is provided "as is," without any warranties, express or implied. We will not be liable for any losses or damages arising from the use of this website.
+      </p>
+
+      <h2>5. Changes to Terms</h2>
+      <p>
+        We reserve the right to modify or replace these Terms at any time. We will notify users of any changes by posting the new Terms on this page.
+      </p>
+
+      <h2>6. Contact Us</h2>
+      <p>
+        If you have any questions about these Terms, please contact us.
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  .legal-page {
+    padding: 2rem 0;
+  }
+  .prose {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+  .prose h1, .prose h2 {
+    color: var(--brand-primary);
+    margin-bottom: 1em;
+  }
+  .prose h1 {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .prose p, .prose ul {
+    margin-bottom: 1.25em;
+    line-height: 1.7;
+    color: var(--text-primary);
+  }
+  .prose strong {
+    color: var(--brand-primary);
+  }
+</style>
