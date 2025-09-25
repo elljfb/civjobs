@@ -45,7 +45,7 @@ const posts = (await getCollection('blog')).sort(
   <section class="blog-section">
     <div class="container">
       <h2 class="section-title">Latest from the Blog</h2>
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+      <div class="blog-grid">
         {posts.map((post) => (
           <a href={`/blog/${post.id}/`} class="blog-card">
             {post.data.heroImage && (
@@ -90,6 +90,12 @@ const posts = (await getCollection('blog')).sort(
     max-width: 600px;
     margin: 0 auto;
     opacity: 0.9;
+  }
+
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem; /* 24px */
   }
 
   /* Key Pages Section */
@@ -148,10 +154,10 @@ const posts = (await getCollection('blog')).sort(
     object-fit: cover;
   }
   .card-content {
-    padding: 1.5rem;
+    padding: 1rem;
   }
   .card-title-blog {
-    font-size: 1.25rem;
+    font-size: 1.125rem;
     font-weight: 700;
     color: var(--brand-primary);
     margin: 0 0 0.5rem 0;
@@ -160,6 +166,21 @@ const posts = (await getCollection('blog')).sort(
     font-size: 0.875rem;
     color: var(--text-secondary);
     margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .card-content {
+      padding: 1.5rem;
+    }
+    .card-title-blog {
+      font-size: 1.25rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   @media (max-width: 768px) {
