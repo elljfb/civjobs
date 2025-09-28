@@ -1,0 +1,69 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { SITE_TITLE } from '../consts';
+import { getAllJobs } from '../lib/supabase';
+import JobList from '../components/JobList.astro';
+
+const allJobs = await getAllJobs();
+const apprenticeshipJobs = allJobs.filter(job => job.title.toLowerCase().includes('apprenticeship'));
+
+const seo = {
+  title: `Apprenticeship Jobs | ${SITE_TITLE}`,
+  description: "Kickstart your career with a Civil Service apprenticeship. Find paid apprenticeships that offer on-the-job training, a competitive salary, and a path to a fulfilling public sector career.",
+};
+---
+
+<Layout title={seo.title} description={seo.description}>
+  
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <h1 class="hero-title">Civil Service Apprenticeships</h1>
+      <p class="hero-subtitle">
+        Build your future with a paid apprenticeship that combines on-the-job training with formal study. 
+        Gain valuable skills, a recognized qualification, and a competitive salary—all while making a real difference to the UK.
+      </p>
+    </div>
+  </section>
+
+  <!-- Job Listings Section -->
+  <section class="job-listings-section">
+    <div class="container">
+      <JobList jobs={apprenticeshipJobs} />
+    </div>
+  </section>
+
+</Layout>
+
+<style>
+  /* Hero Section */
+  .hero-section {
+    background-color: var(--brand-secondary); /* A different color to distinguish the page */
+    color: var(--text-on-dark);
+    padding: 4rem 0;
+    text-align: center;
+  }
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-on-dark);
+  }
+  .hero-subtitle {
+    font-size: 1.25rem;
+    max-width: 600px;
+    margin: 0 auto;
+    opacity: 0.9;
+  }
+
+  /* Job Listings Section */
+  .job-listings-section {
+    padding: 3rem 0;
+  }
+
+  @media (max-width: 768px) {
+    .hero-title {
+      font-size: 2.5rem;
+    }
+  }
+</style>

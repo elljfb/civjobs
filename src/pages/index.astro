@@ -2,8 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { SITE_TITLE, SITE_DESCRIPTION } from '../consts';
 import { getCollection } from 'astro:content';
-import { Image } from 'astro:assets';
-import FormattedDate from '../components/FormattedDate.astro';
+import BlogCard from '../components/BlogCard.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -24,7 +23,7 @@ const posts = (await getCollection('blog')).sort(
   <!-- Key Pages Section -->
   <section class="key-pages-section">
     <div class="container">
-      <div class="grid gap-6 md:grid-cols-3">
+      <div class="key-pages-grid">
         <a href="/departments" class="key-page-card">
           <h2 class="card-title">Browse by Department</h2>
           <p>Explore opportunities in specific government departments.</p>
@@ -47,23 +46,7 @@ const posts = (await getCollection('blog')).sort(
       <h2 class="section-title">Latest from the Blog</h2>
       <div class="blog-grid">
         {posts.map((post) => (
-          <a href={`/blog/${post.id}/`} class="blog-card">
-            {post.data.heroImage && (
-              <Image 
-                src={post.data.heroImage} 
-                alt="" 
-                width={720} 
-                height={360} 
-                class="card-image"
-              />
-            )}
-            <div class="card-content">
-              <h3 class="card-title-blog">{post.data.title}</h3>
-              <p class="card-date">
-                <FormattedDate date={post.data.pubDate} />
-              </p>
-            </div>
-          </a>
+          <BlogCard post={post} />
         ))}
       </div>
     </div>
@@ -94,8 +77,8 @@ const posts = (await getCollection('blog')).sort(
 
   .blog-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 1.5rem; /* 24px */
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 
   /* Key Pages Section */
@@ -123,6 +106,17 @@ const posts = (await getCollection('blog')).sort(
   }
   .key-page-card p {
     color: var(--text-secondary);
+  }
+
+  .key-pages-grid {
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .key-pages-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 
   /* Recent Blog Posts Section */
@@ -174,6 +168,12 @@ const posts = (await getCollection('blog')).sort(
     }
     .card-title-blog {
       font-size: 1.25rem;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .blog-grid {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 

@@ -1,9 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import Layout from '../../layouts/Layout.astro';
-import FormattedDate from '../../components/FormattedDate.astro';
-import { Image } from 'astro:assets';
 import { SITE_TITLE } from '../../consts';
+import BlogCard from '../../components/BlogCard.astro';
 
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
@@ -20,58 +19,28 @@ const posts = (await getCollection('blog')).sort(
     </p>
     <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
       {posts.map((post) => (
-        <a href={`/blog/${post.id}/`} class="blog-card">
-          {post.data.heroImage && (
-            <Image 
-              src={post.data.heroImage} 
-              alt="" 
-              width={720} 
-              height={360} 
-              class="card-image"
-            />
-          )}
-          <div class="card-content">
-            <h2 class="card-title">{post.data.title}</h2>
-            <p class="card-date">
-              <FormattedDate date={post.data.pubDate} />
-            </p>
-          </div>
-        </a>
+        <BlogCard post={post} />
       ))}
     </div>
   </div>
 </Layout>
 
 <style>
-  .blog-card {
-    display: block;
-    background-color: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    overflow: hidden;
-    text-decoration: none;
-    transition: box-shadow 0.2s ease-in-out;
+  .grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
   }
-  .blog-card:hover {
-    box-shadow: var(--box-shadow-md);
+
+  @media (min-width: 768px) {
+    .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
   }
-  .card-image {
-    width: 100%;
-    height: auto;
-    object-fit: cover;
-  }
-  .card-content {
-    padding: 1.5rem;
-  }
-  .card-title {
-    font-size: 1.25rem;
-    font-weight: 700;
-    color: var(--brand-primary);
-    margin: 0 0 0.5rem 0;
-  }
-  .card-date {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin: 0;
+
+  @media (min-width: 1024px) {
+    .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
   }
 </style>

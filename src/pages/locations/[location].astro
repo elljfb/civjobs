@@ -3,6 +3,7 @@ import { getAllJobs } from '../../lib/supabase';
 import Layout from '../../layouts/Layout.astro';
 import { SITE_TITLE } from '../../consts';
 import { isValidLocation } from '../../lib/utils';
+import JobList from '../../components/JobList.astro';
 
 export async function getStaticPaths() {
   const allJobs = await getAllJobs();
@@ -43,24 +44,6 @@ const jobs = (await getAllJobs()).filter(job =>
     <p class="text-lg text-text-secondary mb-8">
       Discover a range of public sector and government careers right here in {decodedLocation}. Whether you're seeking roles in administration, policy, or operations, you can find local opportunities that make a difference. Browse the latest Civil Service jobs in {decodedLocation} below.
     </p>
-    {jobs.length === 0 ? (
-      <p class="text-lg text-text-secondary">No jobs found in {decodedLocation}.</p>
-    ) : (
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {jobs.map(job => (
-          <div class="bg-white p-6 rounded-lg border border-border-color shadow-sm hover:shadow-md transition-shadow">
-            <h2 class="text-xl font-bold text-brand-primary">
-              <a href={job.url} class="hover:underline" target="_blank" rel="noopener noreferrer">
-                {job.title}
-              </a>
-            </h2>
-            <p class="text-text-secondary mt-2">Department: {job.department}</p>
-            <p class="text-text-secondary">Salary: {job.salary}</p>
-            <p class="text-text-secondary">Locations: {job.job_locations.map(l => l.location).join(', ')}</p>
-            <p class="text-text-secondary">Closes: {job.closing_date ? new Date(job.closing_date).toLocaleDateString() : 'N/A'}</p>
-          </div>
-        ))}
-      </div>
-    )}
+    <JobList jobs={jobs} />
   </div>
 </Layout>

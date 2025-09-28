@@ -3,6 +3,7 @@ import { getUniqueSalaryBuckets, getAllJobs, getSalaryBucket } from '../../lib/s
 import Layout from '../../layouts/Layout.astro';
 import { createSalarySlug } from '../../lib/utils';
 import { SITE_TITLE } from '../../consts';
+import JobList from '../../components/JobList.astro';
 
 export async function getStaticPaths() {
   const uniqueSalaries = await getUniqueSalaryBuckets();
@@ -31,24 +32,6 @@ const jobs = (await getAllJobs()).filter(job => {
     <p class="text-lg text-text-secondary mb-8">
       Find public sector roles that meet your financial expectations. This page lists all available Civil Service jobs with salaries in the {currentSalaryBucket} bracket. Explore a variety of positions and take the next step in your career today.
     </p>
-    {jobs.length === 0 ? (
-      <p class="text-lg text-text-secondary">No jobs found in the {currentSalaryBucket} salary range.</p>
-    ) : (
-      <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {jobs.map(job => (
-          <div class="bg-white p-6 rounded-lg border border-border-color shadow-sm hover:shadow-md transition-shadow">
-            <h2 class="text-xl font-bold text-brand-primary">
-              <a href={job.url} class="hover:underline" target="_blank" rel="noopener noreferrer">
-                {job.title}
-              </a>
-            </h2>
-            <p class="text-text-secondary mt-2">Department: {job.department}</p>
-            <p class="text-text-secondary">Salary: {job.salary}</p>
-            <p class="text-text-secondary">Locations: {job.job_locations.map(l => l.location).join(', ')}</p>
-            <p class="text-text-secondary">Closes: {job.closing_date ? new Date(job.closing_date).toLocaleDateString() : 'N/A'}</p>
-          </div>
-        ))}
-      </div>
-    )}
+    <JobList jobs={jobs} />
   </div>
 </Layout>

@@ -1,0 +1,94 @@
+---
+import type { Job } from '../lib/types';
+
+interface Props {
+  jobs: Job[];
+}
+
+const { jobs } = Astro.props;
+---
+<div class="job-list">
+  {jobs.length === 0 ? (
+    <p class="no-jobs-message">No jobs found.</p>
+  ) : (
+    <div class="grid">
+      {jobs.map((job) => (
+        <a href={job.url} target="_blank" rel="noopener noreferrer" class="job-card">
+          <h2 class="job-title">{job.title}</h2>
+          <p class="job-department">{job.department}</p>
+          <p class="job-salary">{job.salary}</p>
+          <div class="job-locations">
+            {job.job_locations && Array.isArray(job.job_locations) && job.job_locations.map(loc => (
+              <span class="job-location">{loc.location}</span>
+            ))}
+          </div>
+          <p class="job-closing-date">Closes: {new Date(job.closing_date).toLocaleDateString()}</p>
+        </a>
+      ))}
+    </div>
+  )}
+</div>
+
+<style>
+  .job-list .grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr;
+  }
+  .job-card {
+    display: block;
+    background-color: var(--bg-primary);
+    padding: 1.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    min-width: 0;
+  }
+  .job-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--box-shadow-md);
+  }
+  .job-title {
+    font-size: 1.25rem;
+    color: var(--brand-primary);
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    word-wrap: break-word;
+  }
+  .job-department, .job-salary, .job-closing-date {
+    color: var(--text-secondary);
+    margin-bottom: 0.5rem;
+  }
+  .job-locations {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+  }
+  .job-location {
+    background-color: var(--bg-secondary);
+    color: var(--text-secondary);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+  .no-jobs-message {
+    font-size: 1.25rem;
+    color: var(--text-secondary);
+    text-align: center;
+    padding: 2rem;
+  }
+
+  @media (min-width: 768px) {
+    .job-list .grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .job-list .grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+</style>

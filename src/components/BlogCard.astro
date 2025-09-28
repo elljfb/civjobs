@@ -1,0 +1,71 @@
+---
+import { Image } from 'astro:assets';
+import FormattedDate from './FormattedDate.astro';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'blog'>;
+}
+
+const { post } = Astro.props;
+---
+<a href={`/blog/${post.slug}/`} class="blog-card">
+  {post.data.heroImage && (
+    <Image 
+      src={post.data.heroImage} 
+      alt="" 
+      width={720} 
+      height={360} 
+      class="card-image"
+    />
+  )}
+  <div class="card-content">
+    <h3 class="card-title-blog">{post.data.title}</h3>
+    <p class="card-date">
+      <FormattedDate date={post.data.pubDate} />
+    </p>
+  </div>
+</a>
+
+<style>
+  .blog-card {
+    display: block;
+    background-color: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    overflow: hidden;
+    text-decoration: none;
+    transition: box-shadow 0.2s ease-in-out;
+  }
+  .blog-card:hover {
+    box-shadow: var(--box-shadow-md);
+  }
+  .card-image {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+  .card-content {
+    padding: 1rem;
+  }
+  .card-title-blog {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--brand-primary);
+    margin: 0 0 0.5rem 0;
+  }
+  .card-date {
+    font-size: 0.875rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  @media (min-width: 768px) {
+    .card-content {
+      padding: 1.5rem;
+    }
+    .card-title-blog {
+      font-size: 1.25rem;
+    }
+  }
+</style>
